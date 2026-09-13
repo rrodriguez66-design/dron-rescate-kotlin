@@ -30,3 +30,4 @@ fun calcularTiempoFinal(
         else -> tiempoBase // Para la condición "normal"
     }
 }
+// Fin de funciones de vuelo
