@@ -1,7 +1,3 @@
-fun main() {
-    // Aquí integraremos el menú y la interacción con el usuario en la Fase 7
-}
-
 // --- FASE 3.1: Funciones de una sola expresión ---
 fun calcularDistanciaTotal(distanciaIda: Double): Double = distanciaIda * 2.0
 
@@ -29,9 +25,30 @@ fun calcularTiempoFinal(
         "emergencia" -> aplicarAjuste(tiempoBase, ajusteEmergencia)
         else -> tiempoBase // Para la condición "normal"
     }
+}
 
-    ------------------------------------------------
+// --- FASE 4.1: Funciones compactas ---
+fun validarBateria(nivel: Int): Boolean = nivel >= 20
 
+fun verificarClima(condicion: String): Boolean = condicion in listOf("normal", "lluvia", "emergencia")
+
+// --- FASE 4.2: Lambdas ---
+val bateriaSuficiente: (Int) -> Boolean = { nivel -> nivel >= 30 }
+
+val climaSeguro: (String) -> Boolean = { condicion -> condicion != "tormenta" }
+
+// --- FASE 4.3: Función de orden superior ---
+fun evaluarSeguridad(
+    bateria: Int,
+    condicion: String,
+    reglaBateria: (Int) -> Boolean,
+    reglaClima: (String) -> Boolean
+): Boolean {
+    return reglaBateria(bateria) && reglaClima(condicion)
+}
+
+// --- FASE 7: Función Principal ---
+fun main() {
     println("=== SIMULADOR DE DRON DE RESCATE ===")
 
     // 1. Lectura de datos
@@ -66,30 +83,5 @@ fun calcularTiempoFinal(
     println("Distancia total a recorrer: $distanciaTotal km")
     println("Tiempo estimado de vuelo: $tiempoFinal minutos")
     println("Estado: AUTORIZADO")
-
-}
-
-// --- FASE 4.1: Funciones compactas ---
-fun validarBateria(nivel: Int): Boolean = nivel >= 20
-
-fun verificarClima(condicion: String): Boolean = condicion in listOf("normal", "lluvia", "emergencia")
-
-// --- FASE 4.2: Lambdas ---
-val bateriaSuficiente: (Int) -> Boolean = { nivel -> nivel >= 30 }
-
-val climaSeguro: (String) -> Boolean = { condicion -> condicion != "tormenta" }
-
-// --- FASE 4.3: Función de orden superior ---
-fun evaluarSeguridad(
-    bateria: Int,
-    condicion: String,
-    reglaBateria: (Int) -> Boolean,
-    reglaClima: (String) -> Boolean
-): Boolean {
-    return reglaBateria(bateria) && reglaClima(condicion)
-}
-
-
-
 }
 // Fin de funciones de vuelo
