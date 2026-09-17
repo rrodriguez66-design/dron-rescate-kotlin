@@ -1,14 +1,33 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main() {
-    val name = "Kotlin"
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    println("Hello, " + name + "!")
+    // Aquí integraremos el menú y la interacción con el usuario en la Fase 7
+}
 
-    for (i in 1..5) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        println("i = $i")
+// --- FASE 3.1: Funciones de una sola expresión ---
+fun calcularDistanciaTotal(distanciaIda: Double): Double = distanciaIda * 2.0
+
+fun calcularTiempoBase(distanciaTotal: Double): Double = distanciaTotal / 2.0
+
+// --- FASE 3.2: Lambdas en variables ---
+val aumentarVeintePorciento: (Double) -> Double = { valor -> valor * 1.20 }
+
+val disminuirDiezPorciento: (Double) -> Double = { valor -> valor * 0.90 }
+
+// --- FASE 3.3: Función de orden superior ---
+fun aplicarAjuste(valorBase: Double, ajuste: (Double) -> Double): Double {
+    return ajuste(valorBase)
+}
+
+// --- FASE 3.4: Selección del ajuste con when ---
+fun calcularTiempoFinal(
+    tiempoBase: Double,
+    condicion: String,
+    ajusteLluvia: (Double) -> Double,
+    ajusteEmergencia: (Double) -> Double
+): Double {
+    return when (condicion) {
+        "lluvia" -> aplicarAjuste(tiempoBase, ajusteLluvia)
+        "emergencia" -> aplicarAjuste(tiempoBase, ajusteEmergencia)
+        else -> tiempoBase // Para la condición "normal"
     }
 }
+// Fin de funciones de vuelo
