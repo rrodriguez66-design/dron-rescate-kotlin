@@ -12,3 +12,23 @@ fun main() {
         println("i = $i")
     }
 }
+
+// --- FASE 4.1: Funciones compactas ---
+fun validarBateria(nivel: Int): Boolean = nivel >= 20
+
+fun verificarClima(condicion: String): Boolean = condicion in listOf("normal", "lluvia", "emergencia")
+
+// --- FASE 4.2: Lambdas ---
+val bateriaSuficiente: (Int) -> Boolean = { nivel -> nivel >= 30 }
+
+val climaSeguro: (String) -> Boolean = { condicion -> condicion != "tormenta" }
+
+// --- FASE 4.3: Función de orden superior ---
+fun evaluarSeguridad(
+    bateria: Int,
+    condicion: String,
+    reglaBateria: (Int) -> Boolean,
+    reglaClima: (String) -> Boolean
+): Boolean {
+    return reglaBateria(bateria) && reglaClima(condicion)
+}
