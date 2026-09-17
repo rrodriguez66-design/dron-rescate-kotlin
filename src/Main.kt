@@ -11,6 +11,44 @@ fun main() {
         // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
         println("i = $i")
     }
+
+    ------------------------------------------------
+
+    println("=== SIMULADOR DE DRON DE RESCATE ===")
+
+    // 1. Lectura de datos
+    print("Ingrese la distancia de ida (km): ")
+    val distanciaIda = readln().toDoubleOrNull() ?: 0.0
+
+    print("Ingrese el nivel de batería (%): ")
+    val bateria = readln().toIntOrNull() ?: 0
+
+    print("Ingrese la condición del clima (normal/lluvia/emergencia/tormenta): ")
+    val clima = readln().lowercase()
+
+    // 2. Evaluaciones de seguridad y vuelo
+    val esSeguro = evaluarSeguridad(bateria, clima, bateriaSuficiente, climaSeguro)
+
+    if (!esSeguro) {
+        println("\n[ALERTA] La misión NO es segura. Despegue cancelado.")
+        return
+    }
+
+    val distanciaTotal = calcularDistanciaTotal(distanciaIda)
+    val tiempoBase = calcularTiempoBase(distanciaTotal)
+    val tiempoFinal = calcularTiempoFinal(
+        tiempoBase,
+        clima,
+        aumentarVeintePorciento,
+        disminuirDiezPorciento
+    )
+
+    // 3. Resultado final
+    println("\n=== DICTAMEN DE MISIÓN ===")
+    println("Distancia total a recorrer: $distanciaTotal km")
+    println("Tiempo estimado de vuelo: $tiempoFinal minutos")
+    println("Estado: AUTORIZADO")
+
 }
 
 // --- FASE 4.1: Funciones compactas ---
