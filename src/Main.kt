@@ -29,5 +29,67 @@ fun calcularTiempoFinal(
         "emergencia" -> aplicarAjuste(tiempoBase, ajusteEmergencia)
         else -> tiempoBase // Para la condición "normal"
     }
+
+    ------------------------------------------------
+
+    println("=== SIMULADOR DE DRON DE RESCATE ===")
+
+    // 1. Lectura de datos
+    print("Ingrese la distancia de ida (km): ")
+    val distanciaIda = readln().toDoubleOrNull() ?: 0.0
+
+    print("Ingrese el nivel de batería (%): ")
+    val bateria = readln().toIntOrNull() ?: 0
+
+    print("Ingrese la condición del clima (normal/lluvia/emergencia/tormenta): ")
+    val clima = readln().lowercase()
+
+    // 2. Evaluaciones de seguridad y vuelo
+    val esSeguro = evaluarSeguridad(bateria, clima, bateriaSuficiente, climaSeguro)
+
+    if (!esSeguro) {
+        println("\n[ALERTA] La misión NO es segura. Despegue cancelado.")
+        return
+    }
+
+    val distanciaTotal = calcularDistanciaTotal(distanciaIda)
+    val tiempoBase = calcularTiempoBase(distanciaTotal)
+    val tiempoFinal = calcularTiempoFinal(
+        tiempoBase,
+        clima,
+        aumentarVeintePorciento,
+        disminuirDiezPorciento
+    )
+
+    // 3. Resultado final
+    println("\n=== DICTAMEN DE MISIÓN ===")
+    println("Distancia total a recorrer: $distanciaTotal km")
+    println("Tiempo estimado de vuelo: $tiempoFinal minutos")
+    println("Estado: AUTORIZADO")
+
+}
+
+// --- FASE 4.1: Funciones compactas ---
+fun validarBateria(nivel: Int): Boolean = nivel >= 20
+
+fun verificarClima(condicion: String): Boolean = condicion in listOf("normal", "lluvia", "emergencia")
+
+// --- FASE 4.2: Lambdas ---
+val bateriaSuficiente: (Int) -> Boolean = { nivel -> nivel >= 30 }
+
+val climaSeguro: (String) -> Boolean = { condicion -> condicion != "tormenta" }
+
+// --- FASE 4.3: Función de orden superior ---
+fun evaluarSeguridad(
+    bateria: Int,
+    condicion: String,
+    reglaBateria: (Int) -> Boolean,
+    reglaClima: (String) -> Boolean
+): Boolean {
+    return reglaBateria(bateria) && reglaClima(condicion)
+}
+
+
+
 }
 // Fin de funciones de vuelo
