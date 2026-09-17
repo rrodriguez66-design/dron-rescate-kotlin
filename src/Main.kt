@@ -32,3 +32,6 @@ fun evaluarSeguridad(
 ): Boolean {
     return reglaBateria(bateria) && reglaClima(condicion)
 }
+
+
+
