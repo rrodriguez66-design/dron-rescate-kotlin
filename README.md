@@ -1,7 +1,7 @@
 # Dron Rescate Kotlin
 
 ## 1. Integrantes
-* **Estudiante A:** Román Rodríguez Castro
+* **Estudiante A:** Román Rodríguez Castro 
 * **Estudiante B:** Isai Emiliano Valdez Vazquez
 
 ## 2. Responsabilidades
